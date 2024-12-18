@@ -1,0 +1,52 @@
+﻿{% extends "app/layout.html" %}
+
+{% block content %}
+{% if failed%}<div>провал</div>{% endif %}
+
+    {% if form != null %}
+    <br><h2>  Пожалуйста заполните форму</h2><br>
+    <div>
+        <form method="post">
+            {% csrf_token %}
+            <label for="{{form.name.id_form_label}}">{{form.name.label}}:</label>
+            {{form.name}}<br><br>
+            <label for="{{form.city.id_form_label}}">{{form.city.label}}:</label>
+            {{form.city}}<br><br>
+            <label for="{{form.job.id_form_label}}">{{form.job.label}}:</label>
+            {{form.job}}<br><br>
+            <label for="{{form.gender.id_form_label}}">{{form.gender.label}}:</label>
+            {{form.gender}}<br><br>
+            <label for="{{form.often.id_form_label}}">{{form.often.label}}:</label>
+            {{form.often}}<br><br>
+            <label for="{{form.genres.id_form_label}}">{{form.genres.label}}:</label>
+            {{form.genres}}<br><br>
+            <label for="{{form.jsound.id_form_label}}">{{form.sound.label}}:</label>
+            {{form.sound}}<br><br>
+            <label for="{{form.notice.id_form_label}}">{{form.notice.label}}:</label>
+            {{form.notice}}<br><br>
+            <label for="{{form.email.id_form_label}}">{{form.email.label}}:</label>
+            {{form.email}}<br><br>
+            <label for="{{form.massage.id_form_label}}">{{form.massage.label}}:</label>
+            {{form.massage}}<br><br>
+            <input type="submit" value="отправить">
+        </form>
+    </div>
+    {% else %}
+    <br><h2>Благодарим за предоставленную информацю</h2>
+    <h3>Вы сообщили:</h3>
+    <ul>
+        <li><span>Имя:</span>{{data.name}}</li>
+        <li><span>Город:</span>{{data.city.value}}</li>
+        <li><span>Работа:</span>{{data.job.value}}</li>
+        <li><span>Пол:</span>{{data.gender}}</li>
+        <li><span>Как часто играете:</span>{{data.often}}</li>
+        <li><span>Любимые жанры:</span>{{data.genres}}</li>
+        <li><span>Важен ли звук:</span>{{data.sound}}</li>
+        <li><span>Получать письма по email:</span>{{data.notice}}</li>
+        <li><span>Ваш email:</span>{{data.email.value}}</li>
+        <li><span>ВКоротко о себе:</span>{{data.massage.value}}</li>
+    </ul>
+
+    {% endif %}
+
+    {% endblock %}

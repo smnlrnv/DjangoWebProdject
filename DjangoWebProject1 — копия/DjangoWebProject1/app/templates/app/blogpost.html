@@ -1,0 +1,97 @@
+{% extends "app/layout.html" %}
+
+{% block content %}
+
+<style>
+    /* Стили для формы комментариев */
+    .comment-form {
+        margin-bottom: 20px;
+        padding: 15px;
+        background-color: #f8f9fa;
+        border-radius: 5px;
+    }
+
+        .comment-form h3 {
+            margin-top: 0;
+            color: #333;
+        }
+
+        .comment-form button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+    /* Стили для списка комментариев */
+    .comment-list {
+        list-style-type: none;
+        padding: 0;
+    }
+
+    .comment {
+        border-bottom: 1px solid #ddd;
+        padding: 15px 0;
+    }
+
+    .comment-date {
+        font-size: 0.8em;
+        color: #666;
+    }
+
+    .comment-author {
+        font-weight: bold;
+        color: #333;
+    }
+
+    .comment-text {
+        margin-top: 5px;
+    }
+</style>
+
+
+<h2> {{ post_1.title }} </h2>
+
+{% if post_1.image and post_1.image.url != '/media/temp.jpg' %}
+
+<img src="{{ post_1.image.url }}" alt=" Картинка статьи блога" />
+
+{% endif %}
+
+<p> {{ post_1.content|linebreaksbr }} </p>
+
+<p> <a href="{% url 'blog' %}">Перейти в блог</a> </p>
+
+{% if user.is_authenticated %}
+
+<h3>Добавить комментарий</h3>
+
+<form method="POST">
+    {% csrf_token %}
+    <div>
+        {{ form.as_p }}
+        <button type="submit" class="save btn btn-default"> Отправить комментарий </button>
+    </div>
+</form>
+
+{% else %}
+
+<h3> Для добавления своего комментария, пожалуйста, авторизуйтесь </h3>
+
+{% endif %}
+
+{% for comment in comments %}
+
+<hr />
+
+<h7> {{ comment.date }} </h7>
+
+<h5> {{ comment.author }} </h5>
+
+<p> {{ comment.text|linebreaksbr }} </p>
+
+{% endfor %}
+
+{% endblock %}
